@@ -120,6 +120,9 @@
         #include <sys/ioctl.h>
     #elif defined(WOLFSSL_SGX)
         #include <errno.h>
+    #elif defined(WOLFSSL_WASM)
+        #include <errno.h>
+        #include <sys/socket.h>
     #elif defined(WOLFSSL_APACHE_MYNEWT) && !defined(WOLFSSL_LWIP)
         #include <mn_socket/mn_socket.h>
     #elif defined(WOLFSSL_DEOS)
@@ -347,6 +350,9 @@
     #define SEND_FUNCTION linuxkm_send
     #define RECV_FUNCTION linuxkm_recv
 #elif defined(WOLFSSL_SGX)
+    #define SEND_FUNCTION send
+    #define RECV_FUNCTION recv
+#elif defined(WOLFSSL_WASM)
     #define SEND_FUNCTION send
     #define RECV_FUNCTION recv
 #else
