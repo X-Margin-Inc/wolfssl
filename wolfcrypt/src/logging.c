@@ -233,7 +233,7 @@ void WOLFSSL_TIME(int count)
 
 #if defined(FREESCALE_MQX) || defined(FREESCALE_KSDK_MQX)
     /* see wc_port.h for fio.h and nio.h includes */
-#elif defined(WOLFSSL_SGX)
+#elif defined(WOLFSSL_SGX) || defined(WOLFSSL_WASM)
     /* Declare sprintf for ocall */
     int sprintf(char* buf, const char *fmt, ...);
 #elif defined(WOLFSSL_DEOS)

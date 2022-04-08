@@ -1039,7 +1039,7 @@ static const char* bench_desc_words[][15] = {
 
 #endif
 
-#if defined(__GNUC__) && defined(__x86_64__) && !defined(NO_ASM) && !defined(WOLFSSL_SGX)
+#if defined(__GNUC__) && defined(__x86_64__) && !defined(NO_ASM) && !defined(WOLFSSL_SGX) && !defined(WOLFSSL_WASM)
     #define HAVE_GET_CYCLES
     static WC_INLINE word64 get_intel_cycles(void);
     static THREAD_LS_T word64 total_cycles;

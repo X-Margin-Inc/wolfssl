@@ -1977,6 +1977,44 @@ extern void uITRON4_free(void *p) ;
     #define USE_CERT_BUFFERS_2048
 #endif /* WOLFSSL_SGX */
 
+#ifdef WOLFSSL_WASM
+    #ifdef _MSC_VER
+        #define NO_RC4
+        #ifndef HAVE_FIPS
+            #define WOLFCRYPT_ONLY
+            #define NO_DES3
+            #define NO_SHA
+            #define NO_MD5
+        #else
+            #define TFM_TIMING_RESISTANT
+            #define NO_WOLFSSL_DIR
+            #define NO_WRITEV
+            #define NO_MAIN_DRIVER
+            #define WOLFSSL_LOG_PRINTF
+            #define WOLFSSL_DH_CONST
+        #endif
+    #else
+        #define HAVE_ECC
+        #define NO_WRITEV
+        #define NO_MAIN_DRIVER
+        #define USER_TICKS
+        #define WOLFSSL_LOG_PRINTF
+        #define WOLFSSL_DH_CONST
+    #endif /* _MSC_VER */
+    #if !defined(HAVE_FIPS) && !defined(NO_RSA)
+        #define WC_RSA_BLINDING
+    #endif
+
+    #define NO_FILESYSTEM
+    #define ECC_TIMING_RESISTANT
+    #define TFM_TIMING_RESISTANT
+    #define SINGLE_THREADED
+    #define NO_ASN_TIME /* can not use headers such as windows.h */
+    #define HAVE_AESGCM
+    #define USE_CERT_BUFFERS_2048
+    #define USE_FAST_MATH
+#endif /* WOLFSSL_WASM */
+
 /* FreeScale MMCAU hardware crypto has 4 byte alignment.
    However, KSDK fsl_mmcau.h gives API with no alignment
    requirements (4 byte alignment is managed internally by fsl_mmcau.c) */

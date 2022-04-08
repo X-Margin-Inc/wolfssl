@@ -66,7 +66,7 @@
         #ifndef WIN32_LEAN_AND_MEAN
             #define WIN32_LEAN_AND_MEAN
         #endif
-        #ifndef WOLFSSL_SGX
+        #ifdef !defined(WOLFSSL_SGX) && !defined(WOLFSSL_WASM)
             #if defined(_WIN32_WCE) || defined(WIN32_LEAN_AND_MEAN)
                 /* On WinCE winsock2.h must be included before windows.h */
                 #include <winsock2.h>
@@ -75,7 +75,7 @@
             #ifndef WOLFSSL_USER_IO
                 #include <ws2tcpip.h> /* required for InetPton */
             #endif
-        #endif /* WOLFSSL_SGX */
+        #endif /* !defined(WOLFSSL_SGX) && !defined(WOLFSSL_WASM) */
     #endif
     #ifndef SINGLE_THREADED
         #include <process.h>
