@@ -1,6 +1,7 @@
 WOLFSSL_ROOT ?= $(shell readlink -f ../..)
 WASI_SDK_PATH ?= /opt/wasi-sdk
-Wolfssl_C_Extra_Flags := -DWOLFSSL_SGX
+Wolfssl_C_Extra_Flags := -DWOLFSSL_WASM
+Wolfssl_C_Extra_Flags += -O3
 
 Wolfssl_C_Files :=$(WOLFSSL_ROOT)/wolfcrypt/src/aes.c\
 					$(WOLFSSL_ROOT)/wolfcrypt/src/arc4.c\
@@ -52,8 +53,6 @@ Wolfssl_C_Files :=$(WOLFSSL_ROOT)/wolfcrypt/src/aes.c\
 Wolfssl_Include_Paths := -I$(WOLFSSL_ROOT)/ \
 						 -I$(WOLFSSL_ROOT)/wolfcrypt/
 
-Wolfssl_C_Extra_Flags := -DWOLFSSL_WASM
-
 ifeq ($(HAVE_WOLFSSL_TEST), 1)
 	Wolfssl_Include_Paths += -I$(WOLFSSL_ROOT)/wolfcrypt/test
 	Wolfssl_C_Files += $(WOLFSSL_ROOT)/wolfcrypt/test/test.c
@@ -73,6 +72,7 @@ ifeq ($(HAVE_WASI_SOCKET), 1)
 	Wolfssl_C_Extra_Flags += -DHAVE_WASI_SOCKET
 endif
 
+.PHONY: all
 all:
 	mkdir -p build
 	$(WASI_SDK_PATH)/bin/clang \
@@ -83,3 +83,7 @@ all:
 		$(Wolfssl_C_Extra_Flags) \
 		$(Wolfssl_Include_Paths) \
 		-o build/wolfssl.wasm $(Wolfssl_C_Files) main.c
+
+.PHONY: clean
+clean:
+	rm -rf build
