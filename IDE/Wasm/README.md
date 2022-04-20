@@ -21,6 +21,14 @@ To clean the static library and compiled objects use the provided clean script:
 - To enable wolfssl benchmark tests, specify: `HAVE_WOLFSSL_BENCHMARK` at build
 - To enable wolfcrypt testsuite, specify: `HAVE_WOLFSSL_TEST` at build
 
+### Benchmarking
+
+As Wasm cannot leverage assembly or hardware optimizations, the results of the benchmarks can be compared to the native build with the following flags for a fair comparison:
+
+```
+./configure --enable-asm=no --enable-singlethreaded=yes
+```
+
 ### Limitations
 - Single Threaded (multiple threaded applications have not been tested)
 - AES-NI use with SGX has not been added in yet
