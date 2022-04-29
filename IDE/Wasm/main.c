@@ -11,6 +11,11 @@
 #include "wolfssl/wolfcrypt/settings.h"
 #include "wolfssl/wolfcrypt/types.h"
 
+#ifdef HAVE_WASI_SOCKET
+#include "client-tls.h"
+#include "server-tls.h"
+#endif /* HAVE_WASI_SOCKET */
+
 #ifdef HAVE_WOLFSSL_TEST
 #include "wolfcrypt/test/test.h"
 #endif /* HAVE_WOLFSSL_TEST */
@@ -18,12 +23,6 @@
 #ifdef HAVE_WOLFSSL_BENCHMARK
 #include "wolfcrypt/benchmark/benchmark.h"
 #endif /* HAVE_WOLFSSL_BENCHMARK */
-
-#ifdef __wasi__
-#ifdef HAVE_WASI_SOCKET
-#include "wasi_socket_ext.h"
-#endif
-#endif
 
 typedef struct func_args {
     int    argc;
@@ -37,6 +36,11 @@ int main(int argc, char** argv) {
     /* only print off if no command line arguments were passed in */
 	if (argc != 2 || strlen(argv[1]) != 2) {
 		printf("Usage:\n"
+#ifdef HAVE_WASI_SOCKET
+               "\t-c Run a TLS client in enclave\n"
+               "\t-s Run a TLS server in enclave\n"
+#endif /* HAVE_WASI_SOCKET */
+
 #ifdef HAVE_WOLFSSL_TEST
                "\t-t Run wolfCrypt tests\n"
 #endif /* HAVE_WOLFSSL_TEST */
@@ -51,6 +55,18 @@ int main(int argc, char** argv) {
     memset(&args,0,sizeof(args));
 
     switch(argv[1][1]) {
+
+#ifdef HAVE_WASI_SOCKET
+        case 'c':
+            printf("Client Test:\n");
+            client_connect();
+            break;
+
+        case 's':
+            printf("Server Test:\n");
+            server_connect();
+            break;
+#endif /* HAVE_WASI_SOCKET */
 
 #ifdef HAVE_WOLFSSL_TEST
         case 't':

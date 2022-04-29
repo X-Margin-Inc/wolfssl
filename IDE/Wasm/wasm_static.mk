@@ -4,7 +4,7 @@ Wolfssl_C_Extra_Flags := -DWOLFSSL_WASM
 Wolfssl_C_Extra_Flags += -DHAVE_CAMELLIA -DWOLFSSL_SHA224 -DWOLFSSL_SHA512 -DWOLFSSL_SHA384 -DHAVE_HKDF -DNO_DSA -DTFM_ECC256 -DECC_SHAMIR \
 	 						-DWC_RSA_PSS -DWOLFSSL_DH_EXTRA -DWOLFSSL_BASE64_ENCODE -DWOLFSSL_SHA3 -DHAVE_POLY1305 -DHAVE_ONE_TIME_AUTH \
 							-DHAVE_CHACHA -DHAVE_HASHDRBG -DHAVE_OPENSSL_CMD -DHAVE_CRL -DHAVE_TLS_EXTENSIONS -DHAVE_SUPPORTED_CURVES \
-							-DHAVE_FFDHE_2048 -DHAVE_SUPPORTED_CURVES -DWOLFSSL_TLS13
+							-DHAVE_FFDHE_2048 -DHAVE_SUPPORTED_CURVES # -DWOLFSSL_TLS13
 Wolfssl_C_Extra_Flags += -O3
 
 Wolfssl_C_Files :=$(WOLFSSL_ROOT)/wolfcrypt/src/aes.c\
@@ -73,8 +73,13 @@ endif
 ifeq ($(HAVE_WASI_SOCKET), 1)
 	WAMR_PATH ?= /opt/wamr
 	Wolfssl_C_Files += $(WAMR_PATH)/core/iwasm/libraries/lib-socket/src/wasi/wasi_socket_ext.c
-	Wolfssl_Include_Paths += -I$(WAMR_PATH)/core/iwasm/libraries/lib-socket/inc
+	Wolfssl_C_Files += server-tls.c client-tls.c
+	Wolfssl_Include_Paths += -I$(WAMR_PATH)/core/iwasm/libraries/lib-socket/inc -I.
 	Wolfssl_C_Extra_Flags += -DHAVE_WASI_SOCKET
+endif
+
+ifeq ($(DEBUG), 1)
+	Wolfssl_C_Extra_Flags += -DDEBUG -DDEBUG_WOLFSSL
 endif
 
 .PHONY: all
@@ -87,7 +92,7 @@ all:
 		-Wl,--strip-all \
 		$(Wolfssl_C_Extra_Flags) \
 		$(Wolfssl_Include_Paths) \
-		-o build/wolfssl.wasm $(Wolfssl_C_Files) main.c
+		-o build/wolfssl.wasm $(Wolfssl_C_Files) main.c 
 
 .PHONY: clean
 clean:
