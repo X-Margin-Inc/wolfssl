@@ -38,9 +38,7 @@
 #include <wolfssl/certs_test.h>
 
 #ifdef __wasi__
-#ifdef HAVE_WASI_SOCKET
 #include "wasi_socket_ext.h"
-#endif
 #endif
 
 #define DEFAULT_PORT 11111
