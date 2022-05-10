@@ -7,29 +7,21 @@ It is expected that the [WASI-SDK](https://github.com/WebAssembly/wasi-sdk) is i
 WolfSSL environment must have been configured using `./autogen.sh`.
 
 ### Build
-The project creates a sample application `wolfssl.wasm`, that executes within a Wasm runtime, such as [WAMR](https://github.com/bytecodealliance/wasm-micro-runtime), [Wasmtime](https://github.com/bytecodealliance/wasmtime), or [Wasmer](https://github.com/wasmerio/wasmer).
+The project creates the static library `libwolfssl.a`, ready to be linked with Wasm applications that rely on WolfSSL as a dependency.
 
-To create the sample application, simply call make:
+To compile the static library, call make:
 
-`make -f wasm_static.mk all HAVE_WOLFSSL_BENCHMARK=1 HAVE_WOLFSSL_TEST=1 HAVE_WASI_SOCKET=1`
+`make -f wasm_static.mk all`
 
 To clean the static library and compiled objects use the provided clean script:
 
 `make -f wasm_static.mk clean`
 
+### Usage
+Wasm applications can link the static library. An example is given in the WolfSSL Examples GitHub repository.
+
 ### Customization
 - To enable debugging output, specify: `DEBUG` at build
-- To enable wolfssl benchmark tests, specify: `HAVE_WOLFSSL_BENCHMARK` at build
-- To enable wolfcrypt testsuite, specify: `HAVE_WOLFSSL_TEST` at build
-- To enable a TLS 1.2 sample with a server and a client, specify: `HAVE_WASI_SOCKET` at build
-
-### Benchmarking
-
-As Wasm cannot leverage assembly or hardware optimizations, the results of the benchmarks can be compared to the native build with the following flags for a fair comparison:
-
-```
-./configure --enable-asm=no --enable-singlethreaded=yes
-```
 
 ### Limitations
 - Single Threaded (multiple threaded applications have not been tested)
