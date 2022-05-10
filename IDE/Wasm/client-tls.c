@@ -30,9 +30,7 @@
 #include    <wolfssl/certs_test.h>
 
 #ifdef __wasi__
-#ifdef HAVE_WASI_SOCKET
 #include "wasi_socket_ext.h"
-#endif
 #endif
 
 #define MAXDATASIZE  4096           /* maximum acceptable amount of data */
@@ -81,7 +79,7 @@ int client_connect()
         return EXIT_FAILURE;
     }
 
-    printf("wolfSSL_Debugging_ON: %d\n", wolfSSL_Debugging_ON());
+    wolfSSL_Debugging_ON();
 
     wolfSSL_Init();
 

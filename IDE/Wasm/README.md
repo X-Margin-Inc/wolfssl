@@ -11,7 +11,7 @@ The project creates a sample application `wolfssl.wasm`, that executes within a 
 
 To create the sample application, simply call make:
 
-`make -f wasm_static.mk all HAVE_WOLFSSL_BENCHMARK=1 HAVE_WOLFSSL_TEST=1`
+`make -f wasm_static.mk all HAVE_WOLFSSL_BENCHMARK=1 HAVE_WOLFSSL_TEST=1 HAVE_WASI_SOCKET=1`
 
 To clean the static library and compiled objects use the provided clean script:
 
