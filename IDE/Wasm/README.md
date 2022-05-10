@@ -18,8 +18,10 @@ To clean the static library and compiled objects use the provided clean script:
 `make -f wasm_static.mk clean`
 
 ### Customization
+- To enable debugging output, specify: `DEBUG` at build
 - To enable wolfssl benchmark tests, specify: `HAVE_WOLFSSL_BENCHMARK` at build
 - To enable wolfcrypt testsuite, specify: `HAVE_WOLFSSL_TEST` at build
+- To enable a TLS 1.2 sample with a server and a client, specify: `HAVE_WASI_SOCKET` at build
 
 ### Benchmarking
 
