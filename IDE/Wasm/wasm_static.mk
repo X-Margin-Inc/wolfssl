@@ -64,8 +64,6 @@ endif
 
 .PHONY: all
 all:
-	mkdir -p build
-
 	# Preprocess, compile and assemble WolfSSL in Wasm
 	$(WASI_SDK_PATH)/bin/clang \
 		-c \
@@ -80,4 +78,4 @@ all:
 
 .PHONY: clean
 clean:
-	rm -rf build
+	rm *.o *.a
