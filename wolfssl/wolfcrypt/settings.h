@@ -2005,12 +2005,12 @@ extern void uITRON4_free(void *p) ;
         #define WC_RSA_BLINDING
     #endif
 
-    #define NO_FILESYSTEM
     #define ECC_TIMING_RESISTANT
     #define TFM_TIMING_RESISTANT
     #define SINGLE_THREADED
     #define NO_ASN_TIME /* can not use headers such as windows.h */
     #define HAVE_AESGCM
+    #define HAVE_SNI
     #define USE_CERT_BUFFERS_2048
     #define USE_FAST_MATH
 #endif /* WOLFSSL_WASM */
