@@ -103,7 +103,7 @@
     #include <errno.h>
 #endif
 
-#if defined(__MACH__) || defined(__FreeBSD__)
+#if defined(__MACH__) || defined(__FreeBSD__) || defined(WOLFSSL_WASM)
 #include <sys/time.h>
 #endif /* __MACH__ || __FreeBSD__ */
 
