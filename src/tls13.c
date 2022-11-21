@@ -106,7 +106,7 @@
 #endif
 
 #if defined(__MACH__) || defined(__FreeBSD__) || \
-    defined(__INCLUDE_NUTTX_CONFIG_H) || defined(WOLFSSL_RIOT_OS)
+    defined(__INCLUDE_NUTTX_CONFIG_H) || defined(WOLFSSL_RIOT_OS) || defined(WOLFSSL_WASM)
 #include <sys/time.h>
 #endif /* __MACH__ || __FreeBSD__ ||
           __INCLUDE_NUTTX_CONFIG_H || WOLFSSL_RIOT_OS */
