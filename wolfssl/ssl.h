@@ -38,6 +38,8 @@
 #include <wolfssl/wolfcrypt/memory.h>
 #include <wolfssl/wolfcrypt/types.h>
 
+#include <time.h>
+
 /* For the types */
 #include <wolfssl/openssl/compat_types.h>
 
