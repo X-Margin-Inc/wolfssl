@@ -123,6 +123,7 @@
     #elif defined(WOLFSSL_WASM)
         #include <errno.h>
         #include <sys/socket.h>
+        #include <arpa/inet.h>
     #elif defined(WOLFSSL_APACHE_MYNEWT) && !defined(WOLFSSL_LWIP)
         #include <mn_socket/mn_socket.h>
     #elif defined(WOLFSSL_DEOS)
