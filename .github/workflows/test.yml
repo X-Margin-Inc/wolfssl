@@ -1,0 +1,15 @@
+name: Run tests
+
+on: 
+  pull_request:
+    branches: # Run on pull requests to the default branch
+      - main
+      - master
+
+jobs:
+  test:
+    runs-on: [self-hosted, Linux, common]
+
+    steps:
+      - name: Run test placeholder
+        run: echo "Run test placeholder"
